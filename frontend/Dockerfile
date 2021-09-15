@@ -3,9 +3,11 @@ FROM node:14-alpine
 WORKDIR /app
 COPY package.json /app/
 COPY yarn.lock /app/
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile && \
+    yarn global add pm2
 
-# TO BE COMPLETED
+COPY . .
+RUN yarn build
 
 EXPOSE 8080
 
