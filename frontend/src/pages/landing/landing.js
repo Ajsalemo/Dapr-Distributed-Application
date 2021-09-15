@@ -1,8 +1,8 @@
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+import { Fragment } from "react";
 import { Appbar } from "../../components/appbar/appbar";
-import { Fragment } from "react"
+import { Jumbotron } from "../../jumbotron/jumbotron";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,9 +23,7 @@ export const Landing = () => {
       <Appbar />
       <div className={classes.root}>
         <Grid container>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>xs=12</Paper>
-          </Grid>
+          <Jumbotron />
         </Grid>
       </div>
     </Fragment>
