@@ -6,6 +6,6 @@ app = Flask(__name__)
 def hello_world():
     return jsonify({ "message": "Dapr-Distributed-Application | Flask"})
 
-@app.route("/api/health")
+@app.route("/health")
 def health():
     return jsonify({ "message": "OK"})

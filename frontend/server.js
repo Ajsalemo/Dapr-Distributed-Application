@@ -11,7 +11,7 @@ const daprUrl = `http://localhost:${daprPort}/v1.0/invoke`;
 
 // A health check endpoint
 // Setting this up initially to tie the invoking of frontend -> backend services together
-app.get('/api/health', async (req, res) => req.pipe(request(`${daprUrl}/daprbackend/health`)).pipe(res));
+app.get('/api/health', async (req, res) => req.pipe(request(`${daprUrl}/daprbackend/method/health`)).pipe(res));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '/build')));

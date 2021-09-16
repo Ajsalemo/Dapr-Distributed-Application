@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  daprfrontend:
+    image: frontend-dapr-react:latest
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "8080:8080"
+
+  daprfrontend-dapr:
+    image: "daprio/daprd:latest"
+    command:
+      [
+        "./daprd",
+        "-app-id",
+        "daprfrontend",
+        "-app-port",
+        "8080",
+        "-placement-host-address",
+        "placement:6050",
+      ]
+    depends_on:
+      - daprfrontend
+    network_mode: "service:daprfrontend"
+
+  daprbackend:
+    image: backend-dapr-flask:latest
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+
+  daprbackend-dapr:
+    image: "daprio/daprd:latest"
+    command:
+      [
+        "./daprd",
+        "-app-id",
+        "daprbackend",
+        "-app-port",
+        "8000",
+        "-placement-host-address",
+        "placement:6050",
+      ]
+    depends_on:
+      - daprbackend
+    network_mode: "service:daprbackend"

@@ -17,8 +17,9 @@ export const Bikes = () => {
   const [statefulHealthResponse, setHealthResponse] = useState(null)
   useEffect(() => {
     async function getHealthResponseFromDapr() {
-      const healthResponse = await axios.get('/api/health')
-      setHealthResponse(healthResponse);
+      const { data: { message } } = await axios.get('/api/health')
+      console.log(message)
+      setHealthResponse(message);
     }
     getHealthResponseFromDapr()
   }, [])
