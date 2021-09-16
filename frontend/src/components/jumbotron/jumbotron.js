@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
-import JumbotronBikeImage from "../assets/images/jumbotron-bike.jpg";
 import { makeStyles } from "@material-ui/core/styles";
+import JumbotronBikeImage from "../../assets/images/jumbotron-bike.jpg";
 
 const useStyles = makeStyles((theme) => ({
   jumbotronImage: {

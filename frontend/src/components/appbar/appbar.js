@@ -3,16 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  appBarRoot: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  appBarTitle: {
+    marginRight: "3rem",
   },
-  title: {
-    flexGrow: 1,
+  appBarLink: {
+    color: "#fff",
+    textDecoration: "none",
   },
   appBar: {
     backgroundColor: "transparent",
@@ -23,11 +25,23 @@ export const Appbar = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.appBarRoot}>
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Home
+          <Typography variant="h6" className={classes.appBarTitle}>
+            <Link to="/" className={classes.appBarLink}>
+              Home
+            </Link>
+          </Typography>
+          <Typography variant="h6" className={classes.appBarTitle}>
+            <Link to="/bikes" className={classes.appBarLink}>
+              Bikes
+            </Link>
+          </Typography>
+          <Typography variant="h6" className={classes.appBarTitle}>
+            <Link to="/gear" className={classes.appBarLink}>
+              Gear
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>

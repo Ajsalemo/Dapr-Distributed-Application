@@ -1,13 +1,13 @@
+import CssBaseline from "@material-ui/core/CssBaseline";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { RouteContainer } from "./components/routecontainer/routeContainer";
 import reportWebVitals from "./reportWebVitals";
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
-    <App />
+    <RouteContainer />
   </React.StrictMode>,
   document.getElementById("root")
 );

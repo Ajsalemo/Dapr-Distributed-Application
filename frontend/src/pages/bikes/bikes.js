@@ -5,18 +5,18 @@ import { Appbar } from "../../components/appbar/appbar";
 import { Jumbotron } from "../../components/jumbotron/jumbotron";
 
 const useStyles = makeStyles((theme) => ({
-  landingRoot: {
+  bikesRoot: {
     flexGrow: 1,
   },
 }));
 
-export const Landing = () => {
+export const Bikes = () => {
   const classes = useStyles();
 
   return (
     <Fragment>
       <Appbar />
-      <div className={classes.landingRoot}>
+      <div className={classes.bikesRoot}>
         <Grid container>
           <Jumbotron />
         </Grid>
