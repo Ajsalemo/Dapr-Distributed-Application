@@ -11,4 +11,4 @@ RUN yarn build
 
 EXPOSE 8080
 
-CMD [ "pm2", "serve", "/app/build", "--no-daemon", "--spa" ]
+CMD [ "pm2", "start", "/app/server.js", "--no-daemon", "-i", "max" ]
