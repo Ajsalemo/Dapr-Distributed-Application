@@ -20,9 +20,13 @@ services:
         "8080",
         "-placement-host-address",
         "placement:6050",
+        "--components-path", 
+        "./components"
       ]
     depends_on:
       - daprfrontend
+    volumes:
+      - "./components/:/components"
     network_mode: "service:daprfrontend"
 
   daprbackend:
@@ -44,7 +48,11 @@ services:
         "8000",
         "-placement-host-address",
         "placement:6050",
+        "--components-path", 
+        "./components"
       ]
+    volumes:
+      - "./components/:/components"
     depends_on:
       - daprbackend
     network_mode: "service:daprbackend"
