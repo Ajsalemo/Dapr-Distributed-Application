@@ -25,6 +25,8 @@ services:
       ]
     depends_on:
       - daprfrontend
+    environment: 
+      - TEST=working
     volumes:
       - "./components/:/components"
     network_mode: "service:daprfrontend"
@@ -51,6 +53,8 @@ services:
         "--components-path", 
         "./components"
       ]
+    environment: 
+      - TEST=working
     volumes:
       - "./components/:/components"
     depends_on:
