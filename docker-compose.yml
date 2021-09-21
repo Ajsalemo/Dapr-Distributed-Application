@@ -20,12 +20,14 @@ services:
         "8080",
         "-placement-host-address",
         "placement:6050",
-        "--components-path", 
-        "./components"
+        "--components-path",
+        "./components",
+        "--config",
+        "/components/config.yaml",
       ]
     depends_on:
       - daprfrontend
-    env_file: 
+    env_file:
       - .env
     volumes:
       - "./components/:/components"
@@ -50,13 +52,21 @@ services:
         "8000",
         "-placement-host-address",
         "placement:6050",
-        "--components-path", 
-        "./components"
+        "--components-path",
+        "./components",
+        "--config",
+        "/components/config.yaml",
       ]
-    env_file: 
+    env_file:
       - .env
     volumes:
       - "./components/:/components"
     depends_on:
       - daprbackend
     network_mode: "service:daprbackend"
+
+  zipkin-dapr:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    command: ["java", "-jar", "zipkin.jar"]
