@@ -2,7 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { Fragment } from "react";
 import { Appbar } from "../../components/appbar/appbar";
-import { Jumbotron } from "../../components/jumbotron/jumbotron";
+import { PaperComponent } from "../../components/papercomponent/papercomponent";
 import { useEffect, useState } from "react";
 import axios from "axios"
 
@@ -17,9 +17,9 @@ export const Bikes = () => {
   const [statefulHealthResponse, setHealthResponse] = useState(null)
   useEffect(() => {
     async function getHealthResponseFromDapr() {
-      const { data: { message } } = await axios.get('/api/health')
+      const { data: { message } } = await axios.get('/bikes')
       console.log(message)
-      setHealthResponse(message);
+      setHealthResponse(message[0]);
     }
     getHealthResponseFromDapr()
   }, [])
@@ -29,8 +29,7 @@ export const Bikes = () => {
       <Appbar />
       <div className={classes.bikesRoot}>
         <Grid container>
-          {statefulHealthResponse ?? "Unsuccessful response"}
-          <Jumbotron />
+          <PaperComponent />
         </Grid>
       </div>
     </Fragment>

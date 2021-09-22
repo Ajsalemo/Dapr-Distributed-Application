@@ -9,6 +9,7 @@ services:
     ports:
       - "8080:8080"
 
+
   daprfrontend-dapr:
     image: "daprio/daprd:latest"
     command:
@@ -27,8 +28,6 @@ services:
       ]
     depends_on:
       - daprfrontend
-    env_file:
-      - .env
     volumes:
       - "./components/:/components"
     network_mode: "service:daprfrontend"
@@ -40,6 +39,9 @@ services:
       dockerfile: backend/Dockerfile
     ports:
       - "8000:8000"
+    env_file:
+      - backend/.env
+
 
   daprbackend-dapr:
     image: "daprio/daprd:latest"
@@ -57,8 +59,6 @@ services:
         "--config",
         "/components/config.yaml",
       ]
-    env_file:
-      - .env
     volumes:
       - "./components/:/components"
     depends_on:

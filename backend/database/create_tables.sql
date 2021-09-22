@@ -1,6 +1,6 @@
 -- Create the initial tables
 CREATE TABLE inventory(
-    ID SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     model VARCHAR(255) NOT NULL,
     price FLOAT NOT NULL,
     image VARCHAR NOT NULL

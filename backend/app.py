@@ -1,17 +1,32 @@
-import logging
-
-import requests
 from flask import Flask, jsonify
-from sqlalchemy import create_engine
+
+from config import database_config
+from models import Inventory
 
 app = Flask(__name__)
-parsed_postgres_str = None
+session = database_config()
+
 # SQL Alchemy connection string
-# engine = create_engine()
 
 @app.route("/")
 def hello_world():
     return jsonify({ "message": "Dapr-Distributed-Application | Flask" })
+
+
+@app.route("/v1/api/bikes/all")
+def get_all_bikes():
+    inventory = session.query(Inventory).all()
+    bikes = [
+        {
+            "id": inv.id,
+            "model": inv.model,
+            "price": inv.price,
+            "image": inv.image
+        }
+    for inv in inventory]  
+    print(bikes)  
+    session.close()
+    return jsonify({ "message": bikes })
 
 
 @app.route("/health")
