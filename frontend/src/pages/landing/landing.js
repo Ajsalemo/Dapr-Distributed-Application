@@ -15,7 +15,7 @@ export const Landing = () => {
 
   return (
     <Fragment>
-      <Appbar />
+      <Appbar position="absolute" backgroundColor="transparent" />
       <div className={classes.landingRoot}>
         <Grid container>
           <Jumbotron />

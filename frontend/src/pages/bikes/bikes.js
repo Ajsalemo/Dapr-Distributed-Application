@@ -1,10 +1,9 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { Fragment } from "react";
+import axios from "axios";
+import { Fragment, useEffect, useState } from "react";
 import { Appbar } from "../../components/appbar/appbar";
 import { PaperComponent } from "../../components/papercomponent/papercomponent";
-import { useEffect, useState } from "react";
-import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
   bikesRoot: {
@@ -14,22 +13,28 @@ const useStyles = makeStyles((theme) => ({
 
 export const Bikes = () => {
   const classes = useStyles();
-  const [statefulHealthResponse, setHealthResponse] = useState(null)
+  const [bikeResponse, setBikeResponse] = useState(null);
   useEffect(() => {
     async function getHealthResponseFromDapr() {
-      const { data: { message } } = await axios.get('/bikes')
-      console.log(message)
-      setHealthResponse(message[0]);
+      const {
+        data: { message },
+      } = await axios.get("/v1/api/bikes/all");
+      setBikeResponse(message);
     }
-    getHealthResponseFromDapr()
-  }, [])
-
+    getHealthResponseFromDapr();
+  }, []);
+  console.log(bikeResponse);
   return (
     <Fragment>
-      <Appbar />
+      <Appbar position="static" backgroundColor="#000" />
       <div className={classes.bikesRoot}>
-        <Grid container>
-          <PaperComponent />
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          {bikeResponse &&
+            bikeResponse.map(
+              (bike) =>
+                <PaperComponent bike={bike} /> ??
+                "Unable to load inventory."
+            )}
         </Grid>
       </div>
     </Fragment>

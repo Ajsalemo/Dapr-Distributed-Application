@@ -15,18 +15,15 @@ const useStyles = makeStyles((theme) => ({
   appBarLink: {
     color: "#fff",
     textDecoration: "none",
-  },
-  appBar: {
-    backgroundColor: "transparent",
-  },
+  }
 }));
 
-export const Appbar = () => {
+export const Appbar = ({ position, backgroundColor }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.appBarRoot}>
-      <AppBar position="absolute" className={classes.appBar}>
+      <AppBar position={position} style={{ backgroundColor: backgroundColor }}>
         <Toolbar>
           <Typography variant="h6" className={classes.appBarTitle}>
             <Link to="/" className={classes.appBarLink}>

@@ -8,9 +8,10 @@ const port = 8080;
 const daprPort = process.env.DAPR_HTTP_PORT || 3500;
 
 const daprUrl = `http://localhost:${daprPort}/v1.0/invoke`;
+const localhostUrl = 'http://localhost:5000'
 
 // Get all bikes
-app.get("/bikes", async (req, res) =>
+app.get("/v1/api/bikes/all", async (req, res) =>
   req.pipe(request(`${daprUrl}/daprbackend/method/v1/api/bikes/all`)).pipe(res)
 );
 
