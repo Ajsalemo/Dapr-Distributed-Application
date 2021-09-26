@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { Appbar } from "../../components/appbar/appbar";
+import { Footer } from "../../components/footer/footer";
 import { PaperComponent } from "../../components/papercomponent/papercomponent";
 
 const useStyles = makeStyles(() => ({
@@ -11,6 +12,8 @@ const useStyles = makeStyles(() => ({
   },
   gridContainer: {
     justifyContent: "center",
+    marginBottom: "6rem",
+    minHeight: "100vh"
   },
 }));
 
@@ -34,16 +37,17 @@ export const Bikes = () => {
       <div className={classes.bikesRoot}>
         <Grid
           container
-          columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+          spacing={1}
           className={classes.gridContainer}
         >
           {bikeResponse &&
             bikeResponse.map(
               (bike) =>
-                <PaperComponent bike={bike} /> ?? "Unable to load inventory."
+                bike ? <PaperComponent bike={bike} /> : "Unable to load inventory."
             )}
         </Grid>
       </div>
+      <Footer />
     </Fragment>
   );
 };
