@@ -24,7 +24,6 @@ def get_all_bikes():
             "image": inv.image
         }
     for inv in inventory]  
-    print(bikes)  
     session.close()
     return jsonify({ "message": bikes })
 

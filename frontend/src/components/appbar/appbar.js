@@ -35,11 +35,6 @@ export const Appbar = ({ position, backgroundColor }) => {
               Bikes
             </Link>
           </Typography>
-          <Typography variant="h6" className={classes.appBarTitle}>
-            <Link to="/gear" className={classes.appBarLink}>
-              Gear
-            </Link>
-          </Typography>
         </Toolbar>
       </AppBar>
     </div>

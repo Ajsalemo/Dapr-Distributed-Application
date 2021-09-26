@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   footerRoot: {
@@ -11,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   footerButton: {
     color: "#fff",
     border: "none",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   footerMain: {
     backgroundColor: "#000",
@@ -27,19 +29,30 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   footerArrowUpIcon: {
-      color: "#fff"
-  }
+    color: "#fff",
+  },
 }));
 
 export const Footer = () => {
   const classes = useStyles();
-
+  const [buildResponse, setBuildResponse] = useState(null);
+ 
   const smoothScrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    async function getSecret() {
+      const {
+        data: { build },
+      } = await axios.get("/secret");
+      setBuildResponse(build);
+    }
+    getSecret();
+  }, []);
 
   return (
     <div className={classes.footerRoot}>
@@ -52,6 +65,9 @@ export const Footer = () => {
             >
               <KeyboardArrowUpIcon className={classes.footerArrowUpIcon} />
             </button>
+          </Typography>
+          <Typography variant="caption" className={classes.footerArrowUpIcon}>
+            {buildResponse ?? "v1.0 | Local"}
           </Typography>
         </Toolbar>
       </AppBar>

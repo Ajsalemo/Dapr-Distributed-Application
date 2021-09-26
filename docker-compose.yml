@@ -9,7 +9,6 @@ services:
     ports:
       - "8080:8080"
 
-
   daprfrontend-dapr:
     image: "daprio/daprd:latest"
     command:
@@ -30,6 +29,8 @@ services:
       - daprfrontend
     volumes:
       - "./components/:/components"
+    env_file:
+      - .env
     network_mode: "service:daprfrontend"
 
   daprbackend:
@@ -41,7 +42,6 @@ services:
       - "8000:8000"
     env_file:
       - backend/.env
-
 
   daprbackend-dapr:
     image: "daprio/daprd:latest"
@@ -63,6 +63,8 @@ services:
       - "./components/:/components"
     depends_on:
       - daprbackend
+    env_file:
+      - .env
     network_mode: "service:daprbackend"
 
   zipkin-dapr:

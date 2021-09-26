@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const PaperComponent = ({ bike }) => {
   const classes = useStyles();
-  if (!bike) return "Loading..";
 
   return (
     <Grid item key={bike.id}>
