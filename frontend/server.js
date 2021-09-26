@@ -12,7 +12,7 @@ const localhostUrl = 'http://localhost:5000'
 
 // Get all bikes
 app.get("/v1/api/bikes/all", async (req, res) =>
-  req.pipe(request(`${daprUrl}/daprbackend/method/v1/api/bikes/all`)).pipe(res)
+  req.pipe(request(`${localhostUrl}/v1/api/bikes/all`)).pipe(res)
 );
 
 // Serve static files

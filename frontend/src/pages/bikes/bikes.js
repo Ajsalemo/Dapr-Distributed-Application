@@ -5,15 +5,19 @@ import { Fragment, useEffect, useState } from "react";
 import { Appbar } from "../../components/appbar/appbar";
 import { PaperComponent } from "../../components/papercomponent/papercomponent";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   bikesRoot: {
     flexGrow: 1,
+  },
+  gridContainer: {
+    justifyContent: "center",
   },
 }));
 
 export const Bikes = () => {
   const classes = useStyles();
   const [bikeResponse, setBikeResponse] = useState(null);
+
   useEffect(() => {
     async function getHealthResponseFromDapr() {
       const {
@@ -23,17 +27,20 @@ export const Bikes = () => {
     }
     getHealthResponseFromDapr();
   }, []);
-  console.log(bikeResponse);
+
   return (
     <Fragment>
       <Appbar position="static" backgroundColor="#000" />
       <div className={classes.bikesRoot}>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid
+          container
+          columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+          className={classes.gridContainer}
+        >
           {bikeResponse &&
             bikeResponse.map(
               (bike) =>
-                <PaperComponent bike={bike} /> ??
-                "Unable to load inventory."
+                <PaperComponent bike={bike} /> ?? "Unable to load inventory."
             )}
         </Grid>
       </div>
