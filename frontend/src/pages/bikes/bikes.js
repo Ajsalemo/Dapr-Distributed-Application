@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     marginBottom: "6rem",
     minHeight: "100vh",
+    width: "100%",
   },
   loadingGridContainer: {
     display: "flex",
