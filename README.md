@@ -14,3 +14,9 @@ Project structure:
   - Dapr components are defined in this location.
   - `config.yaml` is defined to utilize [Dapr distributed tracing with Zipkin](https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/#zipkin-in-self-hosted-mode)
   - `localsecretstore.yaml` is defined to utilize the local environment variable secret store.
+
+![Imgur](https://imgur.com/WUCzN9T.png)
+
+<br>
+
+![Imgur](https://imgur.com/zjUyQB4.png)
