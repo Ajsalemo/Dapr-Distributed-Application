@@ -32,11 +32,16 @@ export const Bikes = () => {
   useEffect(() => {
     setIsLoading(true);
     async function getAllBikes() {
-      const {
-        data: { message },
-      } = await axios.get("/bikes");
-      setBikeResponse(message);
-      setIsLoading(false);
+      try {
+        const {
+          data: { message },
+        } = await axios.get("/bikes");
+        setBikeResponse(message);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
     }
     getAllBikes();
   }, []);

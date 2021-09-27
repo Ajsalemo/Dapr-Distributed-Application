@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export const Footer = () => {
   const classes = useStyles();
   const [buildResponse, setBuildResponse] = useState(null);
- 
+
   const smoothScrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -46,10 +46,14 @@ export const Footer = () => {
 
   useEffect(() => {
     async function getSecret() {
-      const {
-        data: { build },
-      } = await axios.get("/secret");
-      setBuildResponse(build);
+      try {
+        const {
+          data: { build },
+        } = await axios.get("/secret");
+        setBuildResponse(build);
+      } catch (error) {
+        console.error(error);
+      }
     }
     getSecret();
   }, []);
