@@ -9,7 +9,6 @@ static_resources:
   - name: listener_0
     address:
       socket_address:
-        protocol: TCP
         address: 0.0.0.0
         port_value: 10000
     filter_chains:
@@ -17,8 +16,6 @@ static_resources:
       - name: envoy.filters.network.http_connection_manager
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-          scheme_header_transformation:
-            scheme_to_overwrite: https
           stat_prefix: ingress_http
           route_config:
             name: local_route
@@ -29,8 +26,10 @@ static_resources:
               - match:
                   prefix: "/"
                 route:
-                  auto_host_rewrite: www.envoyproxy.io
                   cluster: dapr
+            # We can remove headers with this property
+            # Ref: https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/route/v3/route.proto.html#routeconfiguration
+            response_headers_to_remove: ["x-powered-by"]
           http_filters:
           - name: envoy.filters.http.router
   clusters:
@@ -47,5 +46,5 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: 127.0.0.1
+                address: daprfrontend
                 port_value: 8080
