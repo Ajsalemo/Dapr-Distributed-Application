@@ -9,7 +9,6 @@ const port = 8080;
 const daprPort = process.env.DAPR_HTTP_PORT || 3500;
 
 const daprUrl = `http://localhost:${daprPort}/v1.0/invoke`;
-const localhostUrl = "http://localhost:5000";
 const secretsUrl = `http://localhost:${daprPort}/v1.0/secrets`;
 
 // Serve static files
@@ -28,7 +27,7 @@ app.get("/secret", async (_, res) => {
 });
 
 // For all other requests, route to React client
-app.get("*", function (_req, res) {
+app.all("*", function (_, res) {
   res.sendFile(path.join(__dirname, "/build", "index.html"));
 });
 

@@ -72,3 +72,13 @@ services:
     ports:
       - "9411:9411"
     command: ["java", "-jar", "zipkin.jar"]
+
+  envoy:
+    image: envoy-dapr
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "10000:10000"
+    depends_on:
+      - daprfrontend

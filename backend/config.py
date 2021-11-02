@@ -18,7 +18,8 @@ POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
 print(POSTGRES_USERNAME)
 def database_config():
     engine = create_engine(
-        f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}"
+        f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}",
+        pool_pre_ping=True
     )
 
     Session = sessionmaker(bind=engine)
