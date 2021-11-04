@@ -29,7 +29,7 @@ static_resources:
                   cluster: dapr
             # We can remove headers with this property
             # Ref: https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/route/v3/route.proto.html#routeconfiguration
-            response_headers_to_remove: ["x-powered-by"]
+            response_headers_to_remove: ["x-powered-by", "x-envoy-upstream-service-time"]
           http_filters:
           - name: envoy.filters.http.router
   clusters:
