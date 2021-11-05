@@ -15,7 +15,7 @@ POSTGRES_HOST = os.environ.get('POSTGRES_HOST')
 POSTGRES_PORT = os.environ.get('POSTGRES_PORT')
 POSTGRES_DATABASE = os.environ.get('POSTGRES_DATABASE')
 POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
-print(POSTGRES_USERNAME)
+
 def database_config():
     engine = create_engine(
         f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}",

@@ -15,9 +15,9 @@ const secretsUrl = `http://localhost:${daprPort}/v1.0/secrets`;
 app.use(express.static(path.join(__dirname, "/build")));
 
 // Get all bikes
-app.get("/bikes", async (req, res) => {
-  // TODO - Need to replace this with Axios
-  req.pipe(request(`${daprUrl}/daprbackend/method/v1/api/bikes/all`)).pipe(res);
+app.get("/bikes", async (_, res) => {
+  const { data } = await axios.get(`${daprUrl}/daprbackend/method/v1/api/bikes/all`)
+  res.json(data);
 });
 
 // Call the secret store
