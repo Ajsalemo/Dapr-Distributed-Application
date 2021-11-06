@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
-const axios = require("axios").default;
-
+const axiosInstance = require ("./src/config/axiosInstance")
 const app = express();
 
 const port = 8080;
@@ -16,7 +15,7 @@ app.use(express.static(path.join(__dirname, "/build")));
 // Get all bikes
 app.get("/bikes", async (_, res) => {
   try {
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${daprUrl}/daprbackend/method/v1/api/bikes/all`
     );
     res.json(data);
@@ -30,7 +29,7 @@ app.get("/bikes", async (_, res) => {
 app.get("/secret", async (_, res) => {
   const {
     data: { BUILD },
-  } = await axios.get(`${secretsUrl}/local/BUILD`);
+  } = await axiosInstance.get(`${secretsUrl}/local/BUILD`);
   res.status(200).json({ build: BUILD });
 });
 

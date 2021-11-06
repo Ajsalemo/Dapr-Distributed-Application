@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import axios from "axios";
+import axiosInstance from "../../config/axiosInstance"
 import { Fragment, useEffect, useState } from "react";
 import { Appbar } from "../../components/appbar/appbar";
 import { Footer } from "../../components/footer/footer";
@@ -45,7 +45,7 @@ export const Bikes = () => {
       try {
         const {
           data: { message },
-        } = await axios.get("/bikes");
+        } = await axiosInstance.get("/bikes");
         setBikeResponse(message);
         setIsLoading(false);
       } catch (error) {
