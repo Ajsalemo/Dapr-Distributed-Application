@@ -24,6 +24,15 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     minHeight: "100vh",
   },
+  bikesErrorColor: {
+    color: "#ff0000"
+  },
+  bikesErrorDiv: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    textAlign: "center"
+  }
 }));
 
 export const Bikes = () => {
@@ -64,14 +73,19 @@ export const Bikes = () => {
       <Appbar position="static" backgroundColor="#000" />
       <div className={classes.bikesRoot}>
         <Grid container spacing={1} className={classes.gridContainer}>
-          {bikeResponse &&
+          {bikeResponse && bikeResponse.length > 0 ? ( 
             bikeResponse.map((bike) =>
               bike ? (
                 <PaperComponent bike={bike} />
               ) : (
                 "Unable to load inventory."
               )
-            )}
+            )
+          ) : (
+            <div className={classes.bikesErrorDiv}>
+              <span className={classes.bikesErrorColor}>Unable to load inventory. An error has occurred, please try again.</span>
+            </div>
+          )}
         </Grid>
       </div>
       <Footer />

@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const request = require("request");
 const axios = require("axios").default;
 
 const app = express();
@@ -16,13 +15,22 @@ app.use(express.static(path.join(__dirname, "/build")));
 
 // Get all bikes
 app.get("/bikes", async (_, res) => {
-  const { data } = await axios.get(`${daprUrl}/daprbackend/method/v1/api/bikes/all`)
-  res.json(data);
+  try {
+    const { data } = await axios.get(
+      `${daprUrl}/daprbackend/method/v1/api/bikes/all`
+    );
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
 });
 
 // Call the secret store
 app.get("/secret", async (_, res) => {
-  const { data: { BUILD } } = await axios.get(`${secretsUrl}/local/BUILD`);
+  const {
+    data: { BUILD },
+  } = await axios.get(`${secretsUrl}/local/BUILD`);
   res.status(200).json({ build: BUILD });
 });
 
