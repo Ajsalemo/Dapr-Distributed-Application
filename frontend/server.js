@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const axiosInstance = require ("./src/config/axiosInstance")
+const axiosInstance = require("./src/config/axiosInstance");
 const app = express();
 
 const port = 8080;
@@ -27,10 +27,15 @@ app.get("/bikes", async (_, res) => {
 
 // Call the secret store
 app.get("/secret", async (_, res) => {
-  const {
-    data: { BUILD },
-  } = await axiosInstance.get(`${secretsUrl}/local/BUILD`);
-  res.status(200).json({ build: BUILD });
+  try {
+    const {
+      data: { BUILD },
+    } = await axiosInstance.get(`${secretsUrl}/local/BUILD`);
+    res.status(200).json({ build: BUILD });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
 });
 
 // For all other requests, route to React client
