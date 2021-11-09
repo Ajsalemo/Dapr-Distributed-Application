@@ -1,13 +1,29 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: frontend-react-web
-  labels:
-    app: frontend-react
+  name: dapr-distributed-application
 spec:
   containers:
-    - name: frontend-react-container
+    - name: frontend-dapr-react
       image: frontend-dapr-react:latest
+      # Set this to pull locally instead of from Dockerhub
       imagePullPolicy: IfNotPresent
       ports:
         - containerPort: 8080
+    - name: backend-dapr-flask
+      image: backend-dapr-flask:latest
+      # Set this to pull locally instead of from Dockerhub
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8000
+      env: 
+      - name: POSTGRES_USERNAME
+        value: "<val>"
+      - name: POSTGRES_HOST
+        value: "<val>"
+      - name: POSTGRES_PORT
+        value: "<val>"
+      - name: POSTGRES_DATABASE
+        value: "<val>"
+      - name: POSTGRES_PASSWORD
+        value: "<val>"
