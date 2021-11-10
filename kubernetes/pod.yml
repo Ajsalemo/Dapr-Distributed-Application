@@ -3,6 +3,12 @@ kind: Pod
 metadata:
   name: dapr-distributed-application
 spec:
+  template:
+    metadata:
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "frontend-dapr-react"
+        dapr.io/app-port: "8080"
   containers:
     - name: frontend-dapr-react
       image: frontend-dapr-react:latest
@@ -18,12 +24,12 @@ spec:
         - containerPort: 8000
       env: 
       - name: POSTGRES_USERNAME
-        value: "<val>"
+        value: ""
       - name: POSTGRES_HOST
-        value: "<val>"
+        value: ""
       - name: POSTGRES_PORT
-        value: "<val>"
+        value: ""
       - name: POSTGRES_DATABASE
-        value: "<val>"
+        value: ""
       - name: POSTGRES_PASSWORD
-        value: "<val>"
+        value: ""

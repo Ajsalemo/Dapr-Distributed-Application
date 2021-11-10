@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: daprfrontend
+  labels:
+    app: node
+spec:
+  selector:
+    app: node
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daprfrontend
+  labels:
+    app: node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "daprfrontend"
+        dapr.io/app-port: "8080"
+    spec:
+      containers:
+      - name: node
+        image: frontend-dapr-react:latest
+        ports:
+        - containerPort: 8080
+        # Set this to pull locally instead of from Dockerhub
+        imagePullPolicy: IfNotPresent
