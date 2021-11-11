@@ -3,10 +3,10 @@ apiVersion: v1
 metadata:
   name: daprfrontend
   labels:
-    app: node
+    app: react
 spec:
   selector:
-    app: node
+    app: react
   ports:
   - protocol: TCP
     port: 80
@@ -19,23 +19,23 @@ kind: Deployment
 metadata:
   name: daprfrontend
   labels:
-    app: node
+    app: react
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: node
+      app: react
   template:
     metadata:
       labels:
-        app: node
+        app: react
       annotations:
         dapr.io/enabled: "true"
         dapr.io/app-id: "daprfrontend"
         dapr.io/app-port: "8080"
     spec:
       containers:
-      - name: node
+      - name: react
         image: frontend-dapr-react:latest
         ports:
         - containerPort: 8080
