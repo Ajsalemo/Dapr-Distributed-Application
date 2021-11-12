@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: daprfrontend
+  name: daprbackend
   labels:
     app: flask
 spec:
@@ -9,7 +9,7 @@ spec:
     app: flask
   ports:
   - protocol: TCP
-    port: 80
+    port: 8000
     targetPort: 8000
   type: LoadBalancer
 
@@ -38,7 +38,7 @@ spec:
       - name: flask
         image: backend-dapr-flask:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 8000
         # Set this to pull locally instead of from Dockerhub
         imagePullPolicy: IfNotPresent
         env: 
