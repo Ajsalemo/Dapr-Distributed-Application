@@ -3,7 +3,7 @@ const path = require("path");
 const axiosInstance = require("./src/config/axiosInstance");
 const app = express();
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 const daprPort = process.env.DAPR_HTTP_PORT || 3500;
 
 const daprUrl = `http://localhost:${daprPort}/v1.0/invoke`;
@@ -28,13 +28,27 @@ app.get("/bikes", async (_, res) => {
 // Call the secret store
 app.get("/secret", async (_, res) => {
   try {
-    const {
-      data: { BUILD },
-    } = await axiosInstance.get(`${secretsUrl}/local/BUILD`);
-    res.status(200).json({ build: BUILD });
+    /*
+      Check if the environment is running in Kubernetes
+      If it is, pull from the default Kube secret store (for this project)
+      Else, pull from the 'local' secret store configured in self-hosted mode (Docker-compose)
+    */
+    if (process.env.KUBERNETES_SERVICE_HOST) {
+      const {
+        data: { build: kubeBuildVar },
+      } = await axiosInstance.get(`${secretsUrl}/kubernetes/build`);
+
+      res.status(200).json({ build: kubeBuildVar });
+    } else {
+      const {
+        data: { build: localBuildVar },
+      } = await axiosInstance.get(`${secretsUrl}/local/build`);
+
+      res.status(200).json({ build: localBuildVar });
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).json(error);
+    res.status(500).send({ error: error });
   }
 });
 
@@ -43,6 +57,4 @@ app.all("*", function (_, res) {
   res.sendFile(path.join(__dirname, "/build", "index.html"));
 });
 
-app.listen(process.env.PORT || port, () =>
-  console.log(`Server is listening on port ${port}`)
-);
+app.listen(port, () => console.log(`Server is listening on port ${port}`));
