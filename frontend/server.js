@@ -38,17 +38,17 @@ app.get("/secret", async (_, res) => {
         data: { build: kubeBuildVar },
       } = await axiosInstance.get(`${secretsUrl}/kubernetes/build`);
 
-      res.status(200).json({ build: kubeBuildVar });
+      res.json({ build: kubeBuildVar });
     } else {
       const {
         data: { build: localBuildVar },
       } = await axiosInstance.get(`${secretsUrl}/local/build`);
 
-      res.status(200).json({ build: localBuildVar });
+      res.json({ build: localBuildVar });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: error });
+    res.status(500).send({ err: error });
   }
 });
 
